@@ -64,5 +64,16 @@ var commands = [
 					
 				},
 				help: 'unknown'
-			}
+			},
+            {
+                command: 'argCount',
+                func: function(args) {
+                    writeLine(args.length);
+                    for (var arg of args)
+                    {
+                        writeLine(args.indexOf(arg) + ": " + arg);
+                    }
+                },
+                help: ''
+            }
         ];

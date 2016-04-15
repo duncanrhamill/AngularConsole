@@ -12,7 +12,7 @@
         <h1 class="white-text">Console</h1>
         
         <div ng-repeat="line in lines">
-            <h3 class="white-text readout indent">{{ line }}</h3>
+            <h3 class="white-text readout indent">{{ line.txt }}</h3>
         </div>
         
         <h3 class="white-text indent">&gt <input ng-keyup="$event.keyCode == 13 && enter()" type="text" ng-model="currentLine"></h3>
