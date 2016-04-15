@@ -1,0 +1,33 @@
+body {
+    background-color: #1e1e1e;
+    padding: 2%;
+}
+
+.white-text {
+    color: #fff;
+    font-family: 'Roboto Mono';
+    font-weight: 300;
+}
+
+.readout {
+    margin: 2px;
+}
+
+.indent {
+    position: relative;
+    left: 2%;
+}
+
+input {
+    background-color: transparent;
+    border: 0px solid;
+    color: #fff;
+    font-family: 'Roboto Mono';
+    font-size: 1.17em;
+    font-weight: 300;
+    width: 90%;
+}
+
+input:focus {
+    outline: none;
+}
