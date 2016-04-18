@@ -83,3 +83,7 @@ angular.module('conApp', [])
             $scope.currentLine = "";
         };
     });
+
+$('bod').click( function () {
+    $('inputLine').focus();
+});

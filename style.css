@@ -31,3 +31,8 @@ input {
 input:focus {
     outline: none;
 }
+
+::selection {
+    background-color: #E0E0E0;
+    color: #fff;
+}

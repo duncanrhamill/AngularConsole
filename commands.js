@@ -92,7 +92,6 @@ var commands = [
 			},
 			{
 				command: 'lc',
-<<<<<<< HEAD
 				func: function(args) {
 					switch(loadNewCommand(args[0])) {
 						case -1:
@@ -106,12 +105,7 @@ var commands = [
 							break;
 					}
 				},
-				help: 'unknown'
-=======
-				func: function(args, flags) {
-					
-				},
-				help: 'Loads a new command from the given file'
+				help: 'Loads a new command from the given file. Not yet implamented'
 			},
             {
                 command: 'argList',
@@ -134,6 +128,14 @@ var commands = [
                     }
                 },
                 help: 'Lists the flags provided to it'
->>>>>>> origin/master
+			},
+			{
+				command: 'ipreq',
+				func: function(args, flags) {
+					$.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
+  						writeLine("IPV4: " + data.ip);
+					});
+				},
+				help: 'Returns the ip address of this client'
 			}
         ];
