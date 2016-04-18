@@ -1,14 +1,14 @@
 var commands = [
             {
                 command: 'clear',
-                func: function() {
+                func: function(args, flags) {
                     setLines([]);
                 },
 				help: 'Clears the screen'
             },
             {
                 command: 'echo',
-                func: function(args) {
+                func: function(args, flags) {
 					var text = args.join(' ');
                     writeLine(text);
                 },
@@ -16,7 +16,7 @@ var commands = [
             },
 			{
 				command: 'sum',
-				func: function(args) {
+				func: function(args, flags) {
 					var x;
 					var s = 0;
 					for (x of args) {
@@ -29,25 +29,53 @@ var commands = [
 			},
 			{
 				command: 'sub',
-				func: function(args) {
-					var x;
-					var s = 0;
+				func: function(args, flags) {
+					var x, s;
+					
+					if (flags.indexOf('z') > -1) {
+						s = 0;
+					} else {
+						s = 2 * parseFloat(args[0]);
+					}
+
 					for (x of args) {
 						s -= parseFloat(x);
 					}
 					
 					writeLine(s);
 				},
-				help: 'Subtracts all given numbers'
+				help: 'Subtracts all given numbers starting from the first number',
+				flags: [
+					{flag: 'z', desc: 'Subtract starting from zero'}
+				]
 			},
 			{
 				command: 'help',
-				func: function(args) {
-					var com;
+				func: function(args, flags) {
+					if (args.length == 0) {
+						if (flags.indexOf('e') > -1) {
+							for (var com of commands) {
+								writeLine(com.command + ': ' + com.help);
+							}
+						} else {
+							for (var com of commands) {
+								writeLine(com.command);
+							}
+						}
+						return;
+					}
+					
 					var comFound = false;
-					for (com of commands) {
+					for (var com of commands) {
 						if (com.command == args[0]) {
 							writeLine(com.help);
+							
+							if (com.flags != null && flags.indexOf('f') > -1) {
+								writeLine('Flags: ');
+								for (var f of com.flags) {
+									writeLine(f.flag + ': ' + f.desc);
+								}
+							}
 							comFound = true;
 						}
 					}
@@ -56,24 +84,39 @@ var commands = [
 						writeLine('No command found by that name');
 					}
 				},
-				help: 'Displays help text for a given command'
+				help: 'Displays help text for a given command',
+				flags: [
+					{flag: 'e', desc: 'Show help text for all commands, should not provide a specific command'},
+					{flag: 'f', desc: 'List flags for given command'}
+				]
 			},
 			{
 				command: 'lc',
-				func: function(args) {
+				func: function(args, flags) {
 					
 				},
-				help: 'unknown'
+				help: 'Loads a new command from the given file'
 			},
             {
-                command: 'argCount',
-                func: function(args) {
-                    writeLine(args.length);
+                command: 'argList',
+                func: function(args, flags) {
+                    writeLine(args.length + ' arguments given:');
                     for (var arg of args)
                     {
                         writeLine(args.indexOf(arg) + ": " + arg);
                     }
                 },
-                help: ''
-            }
+                help: 'Lists the arguments provided to it'
+            },
+			{
+				command: 'flagList',
+                func: function(args, flags) {
+                    writeLine(flags.length + ' flags given:');
+                    for (var flag of flags)
+                    {
+                        writeLine(flags.indexOf(flag) + ": " + flag);
+                    }
+                },
+                help: 'Lists the flags provided to it'
+			}
         ];
