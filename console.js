@@ -16,6 +16,28 @@ angular.module('conApp', [])
             $scope.lines.push({ id: lineCounter++, txt: text });
         };
         
+        loadNewCommand = function(source) {
+            var file = source.target.files[0];
+            if (!file) {
+                return -1;
+            }
+            
+            var reader = new FileReader();
+            reader.onLoad = function(source) {
+                var contents = source.target.result;
+                return addNewCommand(contents);
+            }
+            reader.readAsText(file);
+        };
+        
+        addNewCommand = function(comObj) {
+            if (comObj.command != null && comObj.func != null && comObj.help != null) {
+                commands.push(comObj);
+                return 1;
+            }
+            return 0;
+        }
+        
         $scope.enter = function() {
             writeLine("> " + $scope.currentLine);
             

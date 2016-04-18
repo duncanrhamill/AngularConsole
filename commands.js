@@ -61,19 +61,18 @@ var commands = [
 			{
 				command: 'lc',
 				func: function(args) {
-					
+					switch(loadNewCommand(args[0])) {
+						case -1:
+							writeLine("No file found at that path");
+							break;
+						case 0:
+							writeLine("File does not contain a command object");
+							break;
+						case 1:
+							writeLine("Command succesfully added");
+							break;
+					}
 				},
 				help: 'unknown'
-			},
-            {
-                command: 'argCount',
-                func: function(args) {
-                    writeLine(args.length);
-                    for (var arg of args)
-                    {
-                        writeLine(args.indexOf(arg) + ": " + arg);
-                    }
-                },
-                help: ''
-            }
+			}
         ];
