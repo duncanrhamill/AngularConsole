@@ -133,9 +133,40 @@ var commands = [
 				command: 'ipreq',
 				func: function(args, flags) {
 					$.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
-  						writeLine("IPV4: " + data.ip);
+  						setTimeout(function() {writeLine("IPV4: " + data.ip); update();}, 500);
 					});
 				},
 				help: 'Returns the ip address of this client'
+			},
+			{
+				command: 'login',
+				func: function(args, flags) {
+					var success = false;
+					
+					for (var user of users) {
+						if (args[0] == user.name) {
+							if (args[1] == user.password) {
+								setCurrentUser(user);
+								writeLine('Logged in as ' + user.name);
+								user.lastLogin = new Date().getTime();
+								success = true;
+							} 
+						}
+					}
+					
+					if (!success) {
+						writeLine('Username or password is incorrect');
+					}
+				}
+			},
+			{
+				command: 'user',
+				func: function(args, flags) {
+					var user = getCurrentUser();
+					
+					writeLine('Logged in as: ' + user.name);
+					var date = new Date(user.lastLogin);
+					writeLine('Last login: ' + date.toString());
+				}
 			}
         ];

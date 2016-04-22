@@ -6,6 +6,7 @@
         <script src="jquery-1.12.3.min.js"></script>
         <script src="commands.js"></script>
         <script src="console.js"></script>
+        <script src="users.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,300" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
@@ -17,7 +18,7 @@
                 <h3 class="white-text readout indent">{{ line.txt }}</h3>
             </div>
             
-            <h3 class="white-text indent">&gt <input id="inputLine" ng-keyup="$event.keyCode == 13 && enter()" type="text" ng-model="currentLine" autofocus></h3>
+            <h3 class="white-text indent">{{ currentUser.name }}&gt <input id="inputLine" ng-keyup="$event.keyCode == 13 && enter()" type="text" ng-model="currentLine" autofocus></h3>
         </div>
         
     </body>

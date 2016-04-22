@@ -16,6 +16,10 @@ angular.module('conApp', [])
             $scope.lines.push({ id: lineCounter++, txt: text });
         };
         
+        update = function() {
+			$scope.$apply();
+		}
+        
         loadNewCommand = function(source) {
             var file = source.target.files[0];
             if (!file) {
@@ -38,8 +42,28 @@ angular.module('conApp', [])
             return 0;
         }
         
+        previousLine = function() {
+            return $scope.lines[$scope.lines.length - 1];
+        }
+        
+        $scope.currentUser = {
+            name: '',
+            password: '--',
+            access: [
+                'none'
+            ]
+        };
+        
+        setCurrentUser = function(user) {
+            $scope.currentUser = user;
+        }
+        
+        getCurrentUser = function() {
+            return $scope.currentUser;
+        }
+        
         $scope.enter = function() {
-            writeLine("> " + $scope.currentLine);
+            writeLine($scope.currentUser.name + "> " + $scope.currentLine);
             
             var list = $scope.currentLine.split(' ');
 			
